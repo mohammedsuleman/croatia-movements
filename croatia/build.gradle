@@ -12,12 +12,14 @@ buildscript {
 }
 
 apply plugin: 'java'
-apply plugin: 'eclipse'
+apply plugin: 'eclipse-wtp'
 apply plugin: 'idea' 
 apply plugin: 'spring-boot'
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'war'
 
-jar {
+
+war {
     baseName = 'demo'
     version = '0.0.1-SNAPSHOT'
 }
@@ -28,10 +30,14 @@ repositories {
     mavenCentral()
 }
 
+configurations {
+    providedRuntime
+}
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     runtime("mysql:mysql-connector-java")
+    providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
     testCompile("org.springframework.boot:spring-boot-starter-test") 
 }
 
